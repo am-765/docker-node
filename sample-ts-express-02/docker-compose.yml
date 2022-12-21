@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    # Dockerfileの指定
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # 環境変数
+    environment:
+      - DEBUG=app:*
+    # コンテナを起動させ続けるよう設定
+    tty: true
+    # ホスト側のポート：コンテナのポート
+    ports:
+      - '3000:3000'
+    # ホスト側のルートディレクトリをコンテナのappにマウント
+    volumes:
+      - ./:/app
+    # 起動時のカレントフォルダ
+    working_dir: /app
+    # 起動後に実行するコマンド
+    command: yarn dev
